@@ -32,7 +32,7 @@ describe("Donation", function () {
         donation = await Donation.deploy(owner.address);
         await donation.waitForDeployment();
 
-        // 缓存合约地址，减少重复调用
+        // 缓存合约地址
         donationAddress = await donation.getAddress();
         tokenAddress = await token.getAddress();
 
@@ -40,8 +40,7 @@ describe("Donation", function () {
         await token.transfer(addr1.address, ONE_THOUSAND_TOKENS);
         await token.transfer(addr2.address, ONE_THOUSAND_TOKENS);
 
-        // 确保token默认在正常模式下
-        // 0: 正常 1: 总是失败 2: 部分转账(制造数量不匹配)
+        // 确保token默认在正常模式下 (0:正常模式)
         await token.connect(owner).setMode(0);
     });
 
@@ -51,7 +50,7 @@ describe("Donation", function () {
                 .to.emit(donation, "EtherDeposited")
                 .withArgs(addr1.address, ONE_ETHER);
 
-            expect(await donation.etherBalances(addr1.address)).to.equal(ONE_ETHER);
+            expect(await donation.userEtherBalances(addr1.address)).to.equal(ONE_ETHER);
             expect(await donation.getEtherBalance()).to.equal(ONE_ETHER);
         });
 
@@ -148,7 +147,7 @@ describe("Donation", function () {
                 .to.emit(donation, "EtherDeposited")
                 .withArgs(addr1.address, ONE_ETHER);
 
-            expect(await donation.etherBalances(addr1.address)).to.equal(ONE_ETHER);
+            expect(await donation.userEtherBalances(addr1.address)).to.equal(ONE_ETHER);
         });
     });
 
@@ -161,7 +160,7 @@ describe("Donation", function () {
 
             await donation.connect(owner).unpause();
             await donation.connect(addr1).depositEther({ value: ONE_ETHER });
-            expect(await donation.etherBalances(addr1.address)).to.equal(ONE_ETHER);
+            expect(await donation.userEtherBalances(addr1.address)).to.equal(ONE_ETHER);
         });
 
         it("非owner不能暂停或恢复合约", async function () {
