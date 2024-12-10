@@ -13,7 +13,7 @@ contract Donation is ReentrancyGuard, Ownable {
     // 用户ETH余额映射：{用户地址 => ETH余额}
     mapping(address => uint256) public userEtherBalances;
 
-    // 用户代币余额映射：{代币地址 => {用户地址 => 代币余额}}
+    // 用户ERC20代币余额映射：{ERC20代币地址 => {用户地址 => ERC20代币余额}}
     mapping(address => mapping(address => uint256)) public userTokenBalances;
 
     // 合约是否处于暂停状态
@@ -29,7 +29,7 @@ contract Donation is ReentrancyGuard, Ownable {
     event TokenDeposited(address indexed token, address indexed user, uint256 amount);
 
     /**
-     * @dev 构造函数，设置合约所有者。
+     * @dev 构造函数，设置合约所有者
      * @param owner 合约初始化的所有者地址
      */
     constructor(address owner) Ownable(owner) {
@@ -37,8 +37,8 @@ contract Donation is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice 修饰器：当合约未暂停时才能执行。
-     * @dev 若 _isPaused == true 则抛出 "Contract is paused"。
+     * @notice 修饰器：当合约未暂停时才能执行
+     * @dev 若 _isPaused == true 则抛出 "Contract is paused"
      */
     modifier whenNotPaused() {
         require(!_isPaused, "Contract is paused");
@@ -46,8 +46,8 @@ contract Donation is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice 修饰器：当合约已暂停时才能执行。
-     * @dev 若 _isPaused == false 则抛出 "Contract is not paused"。
+     * @notice 修饰器：当合约已暂停时才能执行
+     * @dev 若 _isPaused == false 则抛出 "Contract is not paused"
      */
     modifier whenPaused() {
         require(_isPaused, "Contract is not paused");
@@ -55,8 +55,8 @@ contract Donation is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice 用户可存入ETH到合约。
-     * @dev 使用nonReentrant可防止重入攻击。
+     * @notice 用户可存入ETH到合约
+     * @dev nonReentrant防止重入攻击，whenNotPaused防止在暂停中执行
      */
     function depositEther() external payable nonReentrant whenNotPaused {
         require(msg.value > 0, "Must send ether");
@@ -65,9 +65,8 @@ contract Donation is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice 合约所有者提取指定数量的ETH。
+     * @notice 合约所有者提取指定数量的ETH
      * @param amount 要提取的ETH数量（wei）
-     * @dev 使用nonReentrant防重入，whenNotPaused防止在暂停中执行。
      */
     function withdrawEther(uint256 amount) external onlyOwner nonReentrant whenNotPaused {
         require(address(this).balance >= amount, "Insufficient balance");
@@ -99,7 +98,7 @@ contract Donation is ReentrancyGuard, Ownable {
     }
 
     /**
-     * @notice 获取合约当前持有的ETH总余额（全部用户的ETH聚合）。
+     * @notice 获取合约当前持有的ETH总余额
      */
     function getEtherBalance() external view returns (uint256) {
         return address(this).balance;

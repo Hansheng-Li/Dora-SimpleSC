@@ -27,6 +27,7 @@
    - 提供脚本，用于离线收集捐赠历史和事件数据。
 
 6. **安全性**:
+
    - 防范重入攻击和未授权访问。
    - 对代币转账和以太币提取进行严格验证。
 
@@ -160,7 +161,11 @@ module.exports = {
 
 ---
 
+<!-- TODO: 补充输出 -->
+
 ## 参考资料
+
+<!-- TODO: 补充资料 -->
 
 - [Ethers.js 文档](https://docs.ethers.io/v5/)
 - [Hardhat 文档](https://hardhat.org/docs)
