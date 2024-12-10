@@ -14,7 +14,7 @@ npx hardhat test
 
 ## donate tx
 
-npx hardhat run scripts/donate.js --network sepolia
+npx hardhat run scripts/donate --network sepolia
 https://sepolia.etherscan.io/tx/0xc8faa99d898aad7e27bb40c8eff5c499ac1b5eb44abd61b62cf1ec41a2a66034
 
 ## get donation
