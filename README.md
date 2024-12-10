@@ -94,6 +94,65 @@ npx hardhat test
 - ERC20 代币捐赠功能
 - 合约暂停与紧急处理机制
 
+## 测试结果
+
+```bash
+npx hardhat test
+```
+
+### 结果详情
+
+```scss
+Donation
+    Ether操作
+      ✔ 存入ETH
+      ✔ 存款为0时应失败
+      ✔ 只有owner可以提取ETH
+      ✔ 提取金额超出余额时应失败
+      ✔ 提取金额为0应失败
+    Token操作
+      成功的存入操作
+        ✔ 存入ERC20代币
+      失败的存入操作
+        ✔ 存入金额必须大于0
+        ✔ 代币地址不能为零地址
+        ✔ 当transferFrom失败时应revert
+        ✔ 当转账数量不匹配时应revert
+    Receive函数
+      ✔ 通过转账接收ETH
+    暂停和紧急操作
+      ✔ owner可以暂停和恢复合约
+      ✔ 非owner不能暂停或恢复合约
+      ✔ 紧急提取所有ETH
+      ✔ 非owner无法调用紧急提取
+      ✔ 在没有ETH时紧急提取应失败
+      ✔ 在未暂停时调用unpause应失败
+      ✔ 在已暂停时再次调用pause应失败
+      ✔ 在暂停状态下通过receive函数接收ETH应失败
+    MockERC20额外测试
+      ✔ 设置无效模式应失败
+
+20 passing (2s)
+```
+
+## 覆盖率报告
+
+```bash
+npx hardhat coverage
+```
+
+```sql
+----------------|----------|----------|----------|----------|----------------|
+File            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------------|----------|----------|----------|----------|----------------|
+ contracts/     |      100 |    86.54 |      100 |      100 |                |
+  Donation.sol  |      100 |    84.78 |      100 |      100 |                |
+  MockERC20.sol |      100 |      100 |      100 |      100 |                |
+----------------|----------|----------|----------|----------|----------------|
+All files       |      100 |    86.54 |      100 |      100 |                |
+----------------|----------|----------|----------|----------|----------------|
+```
+
 ---
 
 ## 配置说明
@@ -161,12 +220,28 @@ module.exports = {
 
 ---
 
-<!-- TODO: 补充输出 -->
+### 快速入门与参考文档
 
-## 参考资料
+- [Hardhat 快速入门](https://hardhat.cn/hardhat/readme.html)
+- [Solidity 快速入门](https://leapwhale.com/article/8r581039)
+- [Solidity 在线编译](https://remix.ethereum.org/)
+- [智能合约 Gas 优化技巧](https://www.rpubs.com/liam/optmizeGas)
+- [Level Up Solidity](https://www.levelup.xyz/)
+- [智能合约官方中文文档](https://learnblockchain.cn/docs/solidity/introduction-to-smart-contracts.html)
 
-<!-- TODO: 补充资料 -->
+### 综合学习与课程
 
-- [Ethers.js 文档](https://docs.ethers.io/v5/)
-- [Hardhat 文档](https://hardhat.org/docs)
-- [Sepolia Etherscan](https://sepolia.etherscan.io/)
+- [开发者的 Web3 开源大学](https://www.wtf.academy/)：涵盖 Solidity 入门、进阶、应用、合约安全和交易分析。
+- [WTF Academy](https://www.wtf.academy/)：Solidity 入门与进阶课程。
+- [区块链应用开发系统课 - 60 天入门到入行](https://learnblockchain.cn/course/28)
+- [知识图谱：Web3 学习路线图](https://learnblockchain.cn/maps/Roadmap)
+
+### 视频教程
+
+- [Web3 开发入门教程，从 0 到 1 开发你的第一个 DAPP](https://www.bilibili.com/video/BV1VxDwY8EQx/)
+- [up 主：Keegan 小钢 的区块链开发视频](https://space.bilibili.com/60539794/video)
+
+### 实践与工具
+
+- [5 种流行的 NFT 投放方式及其优缺点](https://www.theblockbeats.info/news/31314)
+- [代码规范](https://learnblockchain.cn/article/9404)
