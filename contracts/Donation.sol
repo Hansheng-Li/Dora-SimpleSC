@@ -17,7 +17,7 @@ contract Donation is ReentrancyGuard, Ownable {
     mapping(address => mapping(address => uint256)) public userTokenBalances;
 
     // 合约是否处于暂停状态
-    bool private isPaused;
+    bool private _isPaused;
 
     // 事件：用户存入ETH
     event EtherDeposited(address indexed user, uint256 amount);
@@ -38,19 +38,19 @@ contract Donation is ReentrancyGuard, Ownable {
 
     /**
      * @notice 修饰器：当合约未暂停时才能执行。
-     * @dev 若 isPaused == true 则抛出 "Contract is paused"。
+     * @dev 若 _isPaused == true 则抛出 "Contract is paused"。
      */
     modifier whenNotPaused() {
-        require(!isPaused, "Contract is paused");
+        require(!_isPaused, "Contract is paused");
         _;
     }
 
     /**
      * @notice 修饰器：当合约已暂停时才能执行。
-     * @dev 若 isPaused == false 则抛出 "Contract is not paused"。
+     * @dev 若 _isPaused == false 则抛出 "Contract is not paused"。
      */
     modifier whenPaused() {
-        require(isPaused, "Contract is not paused");
+        require(_isPaused, "Contract is not paused");
         _;
     }
 
@@ -129,7 +129,7 @@ contract Donation is ReentrancyGuard, Ownable {
      * @dev 当合约未暂停时才可执行。
      */
     function pause() external onlyOwner whenNotPaused {
-        isPaused = true;
+        _isPaused = true;
     }
 
     /**
@@ -137,7 +137,7 @@ contract Donation is ReentrancyGuard, Ownable {
      * @dev 当合约已暂停时才可执行。
      */
     function unpause() external onlyOwner whenPaused {
-        isPaused = false;
+        _isPaused = false;
     }
 
     /**
