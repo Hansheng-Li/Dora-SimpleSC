@@ -96,12 +96,6 @@ npx hardhat test
 
 ## 测试结果
 
-```bash
-npx hardhat test
-```
-
-### 结果详情
-
 ```scss
 Donation
     Ether操作
