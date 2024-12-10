@@ -205,12 +205,32 @@ module.exports = {
 
 ---
 
-## 离线 ETL
+### 离线 ETL 获取捐赠日志
 
-若需离线提取捐赠数据用于分析：
+运行以下命令获取智能合约的事件日志：
 
-1. 运行 `getEvent.js` 脚本获取链上事件。
-2. 使用您喜欢的 ETL 工具解析输出数据。
+```bash
+npx hardhat run scripts/getEvent.js --network sepolia
+```
+
+#### 输出示例：
+
+```
+Compiled 9 Solidity files successfully (evm target: paris).
+Found 4 events
+User 0xFF8E2c1b5b4f951903043adC211520e691aBe2B4 deposited 0.000001 Ether
+User 0x4584ea2D7bfE668151925886982617E30Ee0e5C6 deposited 0.000001 Ether
+User 0x64f0931813a2973e948315EE04185E4419f5A804 deposited 0.000001 Ether
+User 0x64f0931813a2973e948315EE04185E4419f5A804 deposited 0.000001 Ether
+```
+
+#### 说明：
+
+- 每行代表一个事件，格式为：
+  ```
+  User [用户地址] deposited [存款金额] Ether
+  ```
+- 使用网络为 `sepolia`，请确保在 `hardhat.config.js` 中正确配置。
 
 ---
 
