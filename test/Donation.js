@@ -103,6 +103,15 @@ describe("Donation", function () {
             });
         });
 
+
+        describe("失败的存入操作0", function () {
+            it("存入金额不得超过100", async function () {
+                await expect(
+                    donation.connect(addr1).depositToken(tokenAddress, ethers.parseEther("101"))
+                ).to.be.revertedWith("Amount must be less than or equal to 100");
+            });
+        });
+
         describe("失败的存入操作", function () {
             it("存入金额必须大于0", async function () {
                 await expect(

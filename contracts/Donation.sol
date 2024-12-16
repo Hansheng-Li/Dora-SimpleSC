@@ -82,6 +82,8 @@ contract Donation is ReentrancyGuard, Ownable {
      * @param amount 要存入的代币数量
      */
     function depositToken(address tokenAddress, uint256 amount) external nonReentrant whenNotPaused {
+        uint256 maxAmount = 100 * 10**18;
+        require(amount <= maxAmount, "Amount must be less than or equal to 100");
         require(amount > 0, "Amount must be greater than 0");
         require(tokenAddress != address(0), "Invalid token address");
 

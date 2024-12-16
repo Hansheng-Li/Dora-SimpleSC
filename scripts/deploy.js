@@ -7,7 +7,7 @@ async function main() {
 
     const contract = await Donation.deploy(owneraddress);
     // 部署代理合约
-    console.log("合约部署成功，部署地址为：",contract.target);
+    console.log("合约部署成功，部署地址为：", contract.target);
 }
 
 // 处理错误并启动部署
